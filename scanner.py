@@ -2,9 +2,18 @@
 def getchar(words,pos):
 	""" returns char at pos of words, or None if out of bounds """
 
-	if pos<0 or pos>=len(words): return None
-
-	return words[pos]
+    	if (text[pos]>='0' and text[pos]<='1'):
+	        return 'zero_one'
+   	elif text[pos]=='2':
+       		return 'two'
+    	elif text[pos]=='3':
+        	return 'three'
+    	elif (text[pos]=='4' or text[pos]=='5'):
+        	return 'four_five'
+    	elif (text[pos]==':' or text[pos]=='.'):
+        	return 'dot_time'
+    	elif (text[pos]>='6' and text[pos]<='9'):
+        	return 'six_nine'
 	
 
 def scan(text,transition_table,accept_states):
@@ -38,25 +47,18 @@ def scan(text,transition_table,accept_states):
 	
 # the transition table, as a dictionary
 
-# Αντικαταστήστε με το δικό σας λεξικό μεταβάσεων...
-td = { 'q0':{ 't':'q1','l':'q2' },
-       'q1':{ 'e':'q3' },
-       'q2':{ 'o':'q8' },
-       'q3':{ 's':'q4','r':'q6' },
-       'q4':{ 't':'q5' },
-       'q6':{ 'm':'q7' },
-       'q8':{ 'n':'q9' },
-       'q9':{ 'g':'q10'}
-     } 
+td =    {
+        "q0": {"zero_one":"q1","two":"q2","three":"q3","four_five":"q3","six_nine":"q3"},
+        "q1":{"zero_one":"q3","two":"q3","three":"q3","four_five":"q3","six_nine":"q3","dot_time":"q4"},
+        "q2": {"zero_one":"q3","two":"q3","three":"q3","dot_time":"q4"},
+        "q3":{"dot_time":"q4"},
+        "q4":{"zero_one":"q5","two":"q5","three":"q5","four_five":"q5"},
+        "q5":{"zero_one":"q6","two":"q6","three":"q6","four_five":"q6","six_nine":"q6"}
 
-# the dictionary of accepting states and their
-# corresponding token
-
-# Αντικαταστήστε με το δικό σας λεξικό καταστάσεων αποδοχής...
-ad = { 'q5':'TEST_TOKEN',
-       'q7':'TERM_TOKEN',
-       'q10':'LONG_TOKEN'
-     }
+} # transition di
+ad = {
+        "q6": "TIME_TOKEN"
+}
 
 
 # get a string from input
