@@ -1,8 +1,9 @@
 
 def getchar(words,pos):
 	""" returns char at pos of words, or None if out of bounds """
-
-    	if (text[pos]>='0' and text[pos]<='1'):
+	if pos < 0 or pos >= len(text):
+        	return None
+    	elif (text[pos]>='0' and text[pos]<='1'):
 	        return 'zero_one'
    	elif text[pos]=='2':
        		return 'two'
